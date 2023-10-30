@@ -1,0 +1,53 @@
+declare
+fun {IsMember List Z}
+   case List
+   of nil then false
+   [] X#Y|List then
+      if X == Z then true
+      else
+	 {IsMember List Z}
+      end
+   end
+end
+
+{Browse {IsMember [a#e1 b#y c#e3] y}}
+
+declare
+fun {Fetch List Z}
+   case List
+   of nil then Z
+   [] X#Y|List then
+      if X==Z then Y
+      else
+	 {Fetch List Z}
+      end
+      
+   end
+   
+end
+
+{Browse {Fetch [a#e1 b#y c#e3] d}}
+
+declare
+fun {AdjoinExists List A#B}
+      case List
+      of nil then nil
+      [] X#Y|List then
+	 if X == A then
+	    List
+	 else
+	    X#Y | {AdjoinExists List A#B}
+	 end
+      end
+end
+
+declare
+fun {Adjoin List A#B}
+   if {IsMember List A} == true then
+      A#B | {AdjoinExists List A#B}
+   else A#B | List
+   end
+end
+
+{Browse {Adjoin [a#e1 b#y c#e3] d#e4}}
+

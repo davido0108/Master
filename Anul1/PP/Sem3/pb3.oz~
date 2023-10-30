@@ -1,0 +1,33 @@
+declare
+fun {Zip Xs#Ys}
+   case Xs#Ys
+   of nil#nil then nil
+   [] (X|Xs)#(Y|Ys) then
+      (X#Y)|{Zip Xs#Ys}
+   end
+end
+
+{Browse {Zip [a b c]#[1 2 3]}}
+
+declare
+fun {UnZip XY}
+   case XY
+   of nil then nil
+   [] X#Y|XY then
+      XY
+   end
+end
+
+{Browse {UnZip [a#1 b#2 c#3]}}
+
+declare
+fun {CPair Ls}
+   case Ls
+   of nil then 0#0
+   [] X|Xs then
+      case {CPair Xs}
+      of S#L then (X+S)#(1+L) end
+   end
+end
+
+%{Browse {CPair [1 2 3]}}

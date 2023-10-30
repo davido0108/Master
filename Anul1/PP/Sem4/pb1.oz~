@@ -1,0 +1,11 @@
+declare
+fun {FreeSet Expr}
+   case Expr
+   of nil then nil
+   [] lam(X Y) then {FreeSet Y}
+   [] apply(X Y) then {FreeSet X} | {FreeSet Y}
+   [] X then [X]
+   end
+end
+
+{Browse {FreeSet lam(x apply(y x))}}

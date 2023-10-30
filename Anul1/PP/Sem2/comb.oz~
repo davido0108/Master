@@ -1,0 +1,37 @@
+declare
+fun {Numerator N K}
+   if K == 1 then N
+   else N * {Numerator N-1 K-1}
+   end
+end
+
+%{Browse {Numerator 10 3}}
+
+declare
+fun {Denominator N}
+   if N == 0 then 1
+   else N * {Denominator N-1}
+   end
+end   
+
+declare
+fun {Comb N K}
+   if K == 0 then 1
+   else
+      {Numerator N K} div {Denominator K}
+   end
+end
+
+%{Browse {Comb 10 3}}
+
+
+
+declare
+fun {Comb2 N K V}
+   if K + 1 == V then 1
+   else
+      (N-V+1) / V * {Comb2 N K V+1}
+   end
+end
+in
+{Browse {Comb2 10 2 1}} 
